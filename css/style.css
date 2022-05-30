@@ -14,10 +14,15 @@ body {
 }
 
 header {
-    background-color: rgba(120, 120, 120, 1);
+    position: sticky;
+    top: 0;
+
+    text-align: center;
+
     height: 100vh;
     width: 330px;
-    text-align: center;
+    background-color: rgba(120, 120, 120, 1);
+
 }
 
 header h1 {
@@ -60,10 +65,17 @@ header button {
 }
 
 main {
-    position: relative;
-    margin: 0 auto;
-}
 
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    width:100%;
+
+    padding: 0 2em;
+}
+    
 .cToDo-parent :is(div, h2) {
     background-color: rgba(217, 217, 217, 1);
 }
@@ -84,6 +96,7 @@ main {
     display: flex;
     justify-content: space-evenly;
     flex-wrap: wrap;
+    margin-bottom: 100px;
 }
 
 #workflow-board article  {
@@ -96,7 +109,7 @@ main {
 #workflow-board article>div {
     padding: 35px 15px 0px 15px;
     margin-top: 10px;
-    
+
     border-radius: 5px;
     max-width: 300px;
 }
@@ -106,20 +119,6 @@ main {
     width: fit-content;
     padding: .5em 2.5em;
     border-radius: 5px;
-}
-
-#delete-board {
-    
-    bottom: 0;
-    width: 90%;
-    left: 5%;
-    position: absolute;
-    text-align: center;
-    background-color: rgba(255, 176, 176, 1);
-    border: 2px dashed rgba(255, 0, 0, 1);
-    color: rgba(159, 0, 0, 1);
-    padding: 2em 0;
-
 }
 
 
@@ -138,4 +137,15 @@ main {
 
 #workflow-board article div .item-task i {
     color: red;
+}
+
+
+main footer {
+    position: sticky;
+    bottom: 10px;
+    text-align: center;
+    background-color: rgba(255, 176, 176, 1);
+    border: 2px dashed rgba(255, 0, 0, 1);
+    color: rgba(159, 0, 0, 1);
+    padding: 2em 2em;
 }
