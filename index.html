@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="css/style.css">
+    <title>What 2 Do</title>
+</head>
+
+<body>
+    <header>
+        <h1>What 2 Do</h1>
+        <hr noshade="noshade">
+        <div>
+            <h2>Task Name</h2>
+            <input type="text" placeholder="Task Name">
+        </div>
+        <div>
+            <h2>Task Priority</h2>
+            <select name="" id="">
+                <option value="red">ROJO</option>
+                <option value="yellow">AMARILLO</option>
+                <option value="green">VERDE</option>
+            </select>
+        </div>
+
+        <button>Add to Workflow</button>
+    </header>
+    <main>
+        <section id="workflow-board">
+            <article class="cToDo-parent">
+                <h2>To Do</h2>
+                <div id="cToDo">
+                    <div class="item-task">
+                        <h3>Task 1</h3>
+                        <i class="fa-solid fa-trash"></i>
+                    </div>
+                    <div class="item-task">
+                        <h3>Task 1</h3>
+                        <i class="fa-solid fa-trash"></i>
+                    </div>
+                </div>
+            </article>
+            <article class="cWIP-parent">
+                <h2>WIP</h2>
+                <div id="cWIP">
+
+                </div>
+            </article>
+            <article class="cReview-parent">
+                <h2>Review</h2>
+                <div id="cReview">
+
+                </div>
+            </article>
+            <article class="cDone-parent">
+                <h2>Done</h2>
+                <div id="cDone">
+
+                </div>
+            </article>
+        </section>
+        <section id="delete-board">
+            <h2>Drop your tasks here to delete them</h2>
+        </section>
+    </main>
+</body>
+
+</html>

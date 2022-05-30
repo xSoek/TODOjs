@@ -1,0 +1,141 @@
+@import url('https://fonts.googleapis.com/css2?family=Sora:wght@300;600&display=swap');
+@import url(https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css);
+
+
+* {
+    font-family: 'Sora', sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    display: flex;
+}
+
+header {
+    background-color: rgba(120, 120, 120, 1);
+    height: 100vh;
+    width: 330px;
+    text-align: center;
+}
+
+header h1 {
+    padding: .75em 0;
+}
+
+header hr {
+    border: none;
+    width: 100%;
+    background-color: white;
+    height: 1em;
+}
+
+header div {
+    margin-top: 40px;
+}
+
+header div input {
+    width: 80%;
+    padding: .6em;
+    border: 2px solid;
+    border-radius: 2px;
+}
+
+header div select {
+    width: 80%;
+    padding: .6em;
+    border: 2px solid;
+    border-radius: 2px;
+}
+
+header button {
+    font-weight: 700;
+    margin-top: 100px;
+
+    width: 80%;
+    padding: .6em;
+    border: 2px solid;
+    border-radius: 2px;
+}
+
+main {
+    position: relative;
+    margin: 0 auto;
+}
+
+.cToDo-parent :is(div, h2) {
+    background-color: rgba(217, 217, 217, 1);
+}
+
+.cWIP-parent :is(div, h2) {
+    background-color: rgba(140, 255, 214, 1)
+}
+
+.cReview-parent :is(div, h2) {
+    background-color: rgba(255, 240, 108, 1);
+}
+
+.cDone-parent :is(div, h2) {
+    background-color: rgba(191, 255, 140, 1);
+}
+
+#workflow-board   {
+    display: flex;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+}
+
+#workflow-board article  {
+    margin: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#workflow-board article>div {
+    padding: 35px 15px 0px 15px;
+    margin-top: 10px;
+    
+    border-radius: 5px;
+    max-width: 300px;
+}
+
+
+#workflow-board article h2 {
+    width: fit-content;
+    padding: .5em 2.5em;
+    border-radius: 5px;
+}
+
+#delete-board {
+    
+    bottom: 0;
+    width: 90%;
+    left: 5%;
+    position: absolute;
+    text-align: center;
+    background-color: rgba(255, 176, 176, 1);
+    border: 2px dashed rgba(255, 0, 0, 1);
+    color: rgba(159, 0, 0, 1);
+    padding: 2em 0;
+
+}
+
+
+#workflow-board article div .item-task {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 200px;
+    
+    border: 2px solid;
+    border-radius: 3px;
+    background-color: white;
+    padding: 10px 20px;
+    margin-bottom: 20px;
+}
+
+#workflow-board article div .item-task i {
+    color: red;
+}
