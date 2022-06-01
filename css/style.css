@@ -36,16 +36,38 @@ header hr {
     height: 1em;
 }
 
-header div {
+header>div {
     margin-top: 40px;
 }
 
-header div input {
+header>div h2{
+    width: 95%;
+    text-align: left;
+    margin-left: auto;
+}
+
+header .inputName input {
     width: 80%;
     padding: .6em;
     border: 2px solid;
     border-radius: 2px;
 }
+
+
+header>div i {
+    background-color: white;
+    padding: 5px;
+    border-radius: 10%;
+    border: 2px solid transparent;
+    transition: .25s;
+    cursor: pointer;
+}
+
+header>div i:hover {
+    border: 2px solid black;
+}
+
+
 
 header div select {
     width: 80%;
@@ -62,6 +84,15 @@ header button {
     padding: .6em;
     border: 2px solid;
     border-radius: 2px;
+
+    cursor: pointer;
+}
+
+header>h4 {
+    margin-top: 5px;
+    font-size: .75em;
+    color: rgb(187, 2, 2);
+    display: none;
 }
 
 main {
@@ -107,11 +138,13 @@ main {
 }
 
 #workflow-board article>div {
-    padding: 35px 15px 0px 15px;
+    padding: 20px 15px 0px 15px;
     margin-top: 10px;
-
     border-radius: 5px;
-    max-width: 300px;
+    width: 300px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 
@@ -121,22 +154,52 @@ main {
     border-radius: 5px;
 }
 
+#workflow-board article div :is(.item-task, .empty-task) {
 
-#workflow-board article div .item-task {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    width: 200px;
-    
-    border: 2px solid;
+    width: 90%;
     border-radius: 3px;
-    background-color: white;
     padding: 10px 20px;
     margin-bottom: 20px;
+
+}
+
+#workflow-board article div .item-task {
+    border: 2px solid black;
+    background-color: white;
+}
+
+#workflow-board article div .empty-task {
+    border: 2px dashed rgb(82, 82, 82);
+    background-color: rgba(189, 189, 189, .7);
+}
+
+#workflow-board article div .item-task.high {
+    border-color: red;
+    color: red;
+}
+
+#workflow-board article div .item-task.medium {
+    border-color: rgba(255, 122, 0, 1);
+    color: rgba(255, 122, 0, 1);
+}
+
+#workflow-board article div .item-task.low {
+    border-color: rgba(26, 132, 0, 1);
+    color: rgba(26, 132, 0, 1);
 }
 
 #workflow-board article div .item-task i {
+    cursor: pointer;
+    padding: 10px;
     color: red;
+    transition: transform .15s;
+}
+
+#workflow-board article div .item-task i:hover {
+    transform: scale(1.2);
 }
 
 
