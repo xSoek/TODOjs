@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="css/style.css">
+    <title>What 2 Do</title>
+</head>
+
+<body>
+    <header>
+        <h1>What 2 Do</h1>
+        <hr noshade="noshade">
+        <div class="inputName">
+            <h2>Task Name</h2>
+            <input type="text" placeholder="Task Name">
+            <i class="fa-solid fa-filter"></i>
+        </div>
+        <div>
+            <h2>Task Priority</h2>
+            <select name="" id="">
+                <option value="all">Choose category</option>
+                <option value="high">High</option>
+                <option value="medium">Medium</option>
+                <option value="low">Low</option>
+            </select>
+            <i class="fa-solid fa-filter"></i>
+        </div>
+
+        <button>Add to Workflow</button>
+        <h4 class="error-create">Debes completar los campos</h4>
+
+    </header>
+    <main>
+        <section id="workflow-board">
+            <article class="cToDo-parent">
+                <h2>To Do</h2>
+                <div id="cToDo">
+
+                </div>
+            </article>
+            <article class="cWIP-parent">
+                <h2>WIP</h2>
+                <div id="cWIP">
+
+                </div>
+            </article>
+            <article class="cReview-parent">
+                <h2>Review</h2>
+                <div id="cReview">
+
+                </div>
+            </article>
+            <article class="cDone-parent">
+                <h2>Done</h2>
+                <div id="cDone">
+
+                </div>
+            </article>
+        </section>
+
+        <footer id="delete-board">
+            Drop Your tasks here to delete
+        </footer>
+    </main>
+
+
+    <script src="js/cssAdjustments.js"></script>
+</body>
+
+</html>
