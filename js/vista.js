@@ -93,8 +93,20 @@ function createTask() {
 
     drawTasksInZone(tasks.arrToDo, zoneToDo);
     h4ErrorCreate.style.display = "none"
+    inputName.value = "";
+    inputPriority.value = inputPriority.children[0].value;
 }
 
-
+function deleteTask(e) {
+    for (const zone in tasks) {
+        tasks[zone].forEach((task, index) => {
+            if (task._id === parseInt(e.target.parentNode.dataset.task_id)) {
+                tasks[zone].splice(index, 1);
+                drawAllZones(tasks);
+                return;
+            }
+        });
+    }
+}
 
 drawAllZones(tasks);
