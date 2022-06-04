@@ -1,4 +1,4 @@
-let tasks = {
+/*let tasks = {
     arrToDo: [
         {
             _id: 2,
@@ -40,4 +40,4 @@ let tasks = {
     ],
     arrDone: [],
 
-}
+}*/
