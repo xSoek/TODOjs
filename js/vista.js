@@ -19,7 +19,30 @@ btnCreateTask.addEventListener("click", createTask);
 let isFilterByName = false;
 let isFilterByPrio = false;
 
+let draggedTask;
+const addOnDropEvent = () => {
+    for (const zone of articleZones) {
+        zone.addEventListener("dragover", dragOverZone, false)
+        zone.addEventListener("drop", dropTask)
+
+    }
+
+    deleteZone.addEventListener("dragover", dragOverZone, false)
+    deleteZone.addEventListener("drop", dropTask)
+};
+
+
 const drawAllZones = (zones) => {
+    if (!zones) {
+        zones = {
+            arrToDo: [],
+            arrWIP: [],
+            arrReview: [],
+            arrDone: [],
+        }
+        localStorage.setItem('tasks', JSON.stringify(zones))
+    }
+
     let counter = 0;
     for (const zone in zones) {
         drawTasksInZone(zones[zone], articleZones[counter]);
