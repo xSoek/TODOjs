@@ -26,6 +26,19 @@ let isFilterByPrio = false;
 let draggedTask;
 let currentZone;
 
+const drawPriorities = (data, DOM) => {
+    DOM.innerHTML = `<option value="">Choose Priority</option>`;
+    console.log(data);
+    data.forEach(priority => drawPriority(priority, DOM))
+
+}
+
+const drawPriority = (priority, DOM) => {
+    let option = `<option value="${priority.name}">${priority.name.charAt(0).toUpperCase() + priority.name.slice(1)
+        }</option>`
+    DOM.innerHTML += option;
+}
+
 const addOnDropEvent = () => {
 
     for (const zone of articleZones) {
@@ -191,7 +204,7 @@ function translateTask(taskId, previousArray, nextArray, previousZone, nextZone)
     let emptyTask = document.querySelector(`#${nextArray} .empty-task`)
     if (emptyTask) nextZone.removeChild(emptyTask)
 
-    nextZone.appendChild(draggedTask);
+    drawTasksInZone(updatedZones[nextArray], nextZone)
 
     draggedTask.classList.add("new-task");
     draggedTask.addEventListener("transitionend", deleteAppendAnim)
@@ -255,6 +268,6 @@ function filterByInput(e) {
 
 
 
-
+drawPriorities(priorities, inputPriority);
 addOnDropEvent();
 drawAllZones(CONTROLLER.getLocalStorage("tasks"));
