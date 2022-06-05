@@ -1,3 +1,7 @@
+import Controller from "./controller.js"
+
+const CONTROLLER = new Controller();
+
 let articleZones = document.querySelectorAll("section article>div");
 let zoneToDo = document.querySelector("section .cToDo-parent>div");
 let deleteZone = document.querySelector("main footer");
@@ -20,6 +24,7 @@ let isFilterByName = false;
 let isFilterByPrio = false;
 
 let draggedTask;
+
 const addOnDropEvent = () => {
     for (const zone of articleZones) {
         zone.addEventListener("dragover", dragOverZone, false)
@@ -33,6 +38,7 @@ const addOnDropEvent = () => {
 
 
 const drawAllZones = (zones) => {
+    console.log(zones);
     if (!zones) {
         zones = {
             arrToDo: [],
@@ -40,7 +46,7 @@ const drawAllZones = (zones) => {
             arrReview: [],
             arrDone: [],
         }
-        localStorage.setItem('tasks', JSON.stringify(zones))
+        CONTROLLER.saveLocalStorage("tasks", zones)
     }
 
     let counter = 0;
@@ -54,49 +60,15 @@ const drawTasksInZone = (array, DOM) => {
     DOM.innerHTML = "";
     console.log(array);
     if (array.length !== 0)
-        array.forEach(task => drawTask(task, DOM));
+        array.forEach(task => CONTROLLER.printNewTask(task._id, task.title, task.priority).drawTask(DOM, dragTask, deleteAppendAnim, onDeleteTask));
     else
         drawEmptyTask(DOM)
-}
-
-const drawTask = (task, DOM, withAnimation = false) => {
-    /*     
-        <div class="item-task high">
-            <h3>Task 1</h3>
-            <i class="fa-solid fa-trash"></i>
-        </div> 
-    */
-    console.log(task);
-    let div = document.createElement("div");
-    div.dataset.task_id = task._id;
-    div.classList.add("item-task");
-    div.classList.add(task.priority);
-    div.draggable = true;
-    div.addEventListener("dragstart", dragTask)
-
-    if (withAnimation) {
-        div.classList.add("new-task");
-        div.addEventListener("transitionend", deleteAppendAnim)
-    }
-
-    let h3 = document.createElement("h3");
-    h3.innerText = task.title;
-
-    let i = document.createElement("i");
-    i.addEventListener("click", onDeleteTask);
-    i.classList.add("fa-solid");
-    i.classList.add("fa-trash");
-
-    div.append(h3, i);
-    DOM.appendChild(div)
 }
 
 function deleteAppendAnim(e) {
     e.target.classList.remove("new-task");
     e.target.removeEventListener("transitionend", deleteAppendAnim)
 }
-
-
 
 const drawEmptyTask = (DOM) => {
 
@@ -110,68 +82,35 @@ const drawEmptyTask = (DOM) => {
     DOM.appendChild(div)
 }
 
-const getNextID = (arrTasks) => {
-
-    let tasksIds = [];
-
-    for (const zone in arrTasks) {
-        arrTasks[zone].forEach(task => tasksIds.push(task._id));
-    }
-
-    tasksIds.sort((a, b) => a - b);
-
-    let nextId = (tasksIds.length !== 0) ? tasksIds[tasksIds.length - 1] + 1 : 0;
-    console.log(nextId);
-    return nextId
-}
-
 function createTask() {
-    let storageData = JSON.parse(localStorage.getItem('tasks'));
-
     if (inputName.value === "" || inputPriority.value === "") {
 
         h4ErrorCreate.style.display = "block"
         return;
     }
 
-    let newTask = {
-        _id: getNextID(storageData),
-        title: inputName.value,
-        priority: inputPriority.value,
-    }
+    let newTask = CONTROLLER.setNewTaskAndSave(inputName.value, inputPriority.value)
+    let emptyTask = document.querySelector("#arrToDo .empty-task")
+    if (emptyTask) zoneToDo.removeChild(emptyTask)
 
-    storageData.arrToDo.push(newTask);
+    newTask.drawTask(zoneToDo, dragTask, deleteAppendAnim, onDeleteTask, true);
 
-    drawTasksInZone(storageData.arrToDo, zoneToDo);
     h4ErrorCreate.style.display = "none"
     inputName.value = "";
     inputPriority.value = inputPriority.children[0].value;
 
 
-    localStorage.setItem('tasks', JSON.stringify(storageData))
 }
 
 function onDeleteTask(e) {
-    deleteTask(e.target.parentNode.dataset.task_id, e.target.parentNode.parentNode)
+    let updatedZone = CONTROLLER.deleteTask(e.target.parentNode.dataset.task_id)
+    console.log(updatedZone);
+    drawTasksInZone(updatedZone, e.target.parentNode.parentNode);
 }
 
-
-function deleteTask(taskId, zoneToDraw) {
-    let storageData = JSON.parse(localStorage.getItem('tasks'));
-    for (const zone in storageData) {
-        storageData[zone].forEach((task, index) => {
-            if (task._id === parseInt(taskId)) {
-                storageData[zone].splice(index, 1);
-                localStorage.setItem('tasks', JSON.stringify(storageData))
-                drawTasksInZone(storageData[zone], zoneToDraw);
-                return;
-            }
-        });
-    }
-}
 
 function dragTask(e) {
-    // reset the transparency
+
     draggedTask = e.target;
     changePointerEventStyle("none");
 
@@ -180,14 +119,13 @@ function dragTask(e) {
 const changePointerEventStyle = (value) => {
     articleZones.forEach(zone => {
         if (zone.length !== 0) {
-            console.log(zone.children);
             Array.from(zone.children).forEach(task => { if (draggedTask !== task) task.style.pointerEvents = value })
         }
     })
 }
 
 function dropTask(e) {
-    // reset the transparency
+
     e.preventDefault();
 
     if (e.target.id !== "delete-board") {
@@ -202,7 +140,8 @@ function dropTask(e) {
         }
 
     } else {
-        deleteTask(draggedTask.dataset.task_id, draggedTask.parentNode);
+        // deleteTask(draggedTask.dataset.task_id, draggedTask.parentNode);
+
     }
     changePointerEventStyle("all")
 }
@@ -211,18 +150,21 @@ function translateTask(taskId, previousArray, nextArray, previousZone, nextZone)
     if (previousZone === nextZone) {
         return;
     }
-    console.log(nextArray);
-    let storageData = JSON.parse(localStorage.getItem('tasks'));
-    let index = storageData[previousArray].findIndex(task => task._id.toString() === taskId)
-    storageData[nextArray].push(storageData[previousArray][index]);
-    storageData[previousArray].splice(index, 1)
-    localStorage.setItem('tasks', JSON.stringify(storageData))
-    drawTasksInZone(storageData[previousArray], previousZone);
-    drawTask(storageData[nextArray][storageData[nextArray].length - 1], nextZone, true);
+
+    let updatedZones = CONTROLLER.onTaskTranslated(taskId, previousArray, nextArray)
+
+    drawTasksInZone(updatedZones[previousArray], previousZone);
+
+    let emptyTask = document.querySelector(`#${nextArray} .empty-task`)
+    if (emptyTask) nextZone.removeChild(emptyTask)
+
+    nextZone.appendChild(draggedTask);
+
+    draggedTask.classList.add("new-task");
+    draggedTask.addEventListener("transitionend", deleteAppendAnim)
 }
 
 function dragOverZone(e) {
-    // reset the transparency
     e.preventDefault();
 }
 
@@ -247,7 +189,7 @@ function filterInput(e) {
         btnCreateTask.parentNode.classList.remove("disabled");
 
     }
-    let storageData = JSON.parse(localStorage.getItem('tasks'));
+    let storageData = CONTROLLER.getLocalStorage("tasks");
     drawAllZones(storageData)
 }
 
@@ -271,56 +213,14 @@ const changeFilterMode = (filterType, filterInput, filterIcon) => {
 
 function filterByInput(e) {
     if (e.target.type === "text") {
-        filterByName(e.target.value)
+        drawAllZones(CONTROLLER.filterByName(e.target.value));
     } else if (e.target.type === "select-one") {
-        filterByPriority(e.target.value)
+        drawAllZones(CONTROLLER.filterByPriority(e.target.value))
     }
 }
 
 
-function filterByName(name) {
-    let storageData = JSON.parse(localStorage.getItem('tasks'));
-    let auxData = {
-        arrToDo: [],
-        arrWIP: [],
-        arrReview: [],
-        arrDone: []
-    };
 
-    for (const zone in storageData) {
-        storageData[zone].forEach(task => {
-            if (task.title.toLowerCase().includes(name.toLowerCase())) {
-                auxData[zone].push(task);
-            }
-        });
-    }
-    drawAllZones(auxData)
-}
-
-function filterByPriority(priorityValue) {
-    let storageData = JSON.parse(localStorage.getItem('tasks'));
-    let auxData = {
-        arrToDo: [],
-        arrWIP: [],
-        arrReview: [],
-        arrDone: []
-    };
-
-    if (priorityValue === "") {
-        auxData = storageData
-        drawAllZones(auxData)
-        return;
-    }
-
-    for (const zone in storageData) {
-        storageData[zone].forEach(task => {
-            if (task.priority === priorityValue) {
-                auxData[zone].push(task);
-            }
-        });
-    }
-    drawAllZones(auxData)
-}
 
 addOnDropEvent();
-drawAllZones(JSON.parse(localStorage.getItem('tasks')));
+drawAllZones(CONTROLLER.getLocalStorage("tasks"));
