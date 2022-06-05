@@ -10,7 +10,12 @@
 }
 
 body {
+    transition: .25s;
     display: flex;
+}
+
+body.dark {
+    background-color: rgb(44, 44, 44);
 }
 
 header {
@@ -53,14 +58,37 @@ header .inputName input {
     border-radius: 2px;
 }
 
+header .inputName input::placeholder {
+    color: black;
+}
+
+header .inputName input.dark::placeholder {
+    color: white;
+}
+
+header .inputName input.filtering.dark::placeholder {
+    color: black;
+}
+
+header .inputName input.dark {
+    border-color: black;
+    background-color: rgb(36, 36, 36);
+    color: white;
+}
+
 
 header>div i {
     background-color: white;
-    padding: 5px;
+    padding: 3px;
     border-radius: 10%;
     border: 2px solid transparent;
     transition: .25s;
     cursor: pointer;
+}
+
+header>div i.fa-filter.dark {
+    background-color: rgb(36, 36, 36);
+    color: white;
 }
 
 header>div i:hover {
@@ -70,7 +98,9 @@ header>div i:hover {
 
 .filtering {
     animation: changeColor 2s infinite;
+    color: black !important;
 }
+
 
 header>div i.filtering:hover {
     border: 2px solid rgb(255, 145, 0);
@@ -85,9 +115,15 @@ header div select {
     border-radius: 2px;
 }
 
+header div select.dark {
+    border-color: black;
+    background-color: rgb(36, 36, 36);
+    color: white;
+}
+
 header .btn-container {
 
-    transition: all .5s;
+    transition: clip-path .5s;
     clip-path: polygon(100% 0, 100% 50%, 100% 100%, 0% 100%, 0 49%, 0% 0%);
 
     margin: 100px auto 0 auto;
@@ -99,22 +135,25 @@ header .btn-container {
 }
 
 header .btn-container:hover {
+    
     clip-path: polygon(88% 0, 100% 50%, 87% 100%, 0% 100%, 0 0, 0 0);
     
 }
 
-header .btn-container:hover button {
+header .btn-container:hover :is(button, button.dark) {
+    color: black;
     clip-path: polygon(88% 0, 99% 50%, 87% 100%, 0% 100%, 0 0, 0 0);
-    animation: changeColor 2s infinite;
+    background-color: rgb(255, 217, 0);
 }
 
 
 
 header .btn-container button {
-    transition: all .5s;
+    transition: clip-path .5s;
     clip-path: polygon(100% 0, 100% 50%, 100% 100%, 0% 100%, 0 0, 0 0);
     font-weight: 700;
-
+    background-color: white;
+    color: black;
     width: 100%;
     padding: .6em;
 
@@ -122,6 +161,12 @@ header .btn-container button {
 
     border: none;
     cursor: pointer;
+}
+
+header .btn-container button.dark {
+    color: white;
+    background-color: rgb(36, 36, 36);
+    
 }
 
 header .btn-container.disabled {
@@ -133,6 +178,45 @@ header>h4 {
     font-size: .75em;
     color: rgb(187, 2, 2);
     display: none;
+}
+
+header .theme-selector {
+    position: relative;
+    border-radius: 5px;
+    width: 22%;
+    height: 25px;
+    margin: 100px auto;
+    display: flex;
+    justify-content: space-between;
+    background-color: black;
+}
+
+header .theme-selector i{
+    transition: .25s;
+    position: absolute;
+    border: 2px solid transparent;
+    transform: scale(1.4);
+}
+
+
+header .theme-selector i.light{
+    color: black;
+    background-color: white;
+    border: 2px solid transparent;
+}
+
+
+header .theme-selector :is(i.light:hover, i.dark){
+    
+    color: yellow;
+    background-color: rgb(29, 29, 29);
+    
+}
+
+header .theme-selector i.dark:hover {
+    color: black;
+    background-color: white;
+    border: 2px solid transparent;
 }
 
 main {
@@ -149,45 +233,65 @@ main {
     
 .cToDo-parent :is(div, h2) {
     background-color: hsla(32, 100%, 77%, 1);
-    border: 2px solid transparent
+    border: 7px solid transparent
 }
+
+.cToDo-parent.dark :is(div, h2) {
+    background-color: hsla(32, 100%, 60%, 1);
+    border: 7px solid transparent
+}
+.cToDo-parent div.dgd-over {
+    background-color: hsla(32, 100%, 77%, 1);
+    border:7px solid hsla(32, 100%, 40%, 1);
+}
+
 
 
 .cWIP-parent :is(div, h2) {
     background-color: hsla(159, 100%, 77%, 1);
-    border: 2px solid transparent
+    border: 7px solid transparent
 }
+
+.cWIP-parent.dark :is(div, h2) {
+    background-color: hsla(159, 100%, 50%, 1);
+    border: 7px solid transparent
+}
+.cWIP-parent div.dgd-over {
+    background-color: hsla(159, 100%, 77%, 1);
+    border:7px solid hsla(159, 100%, 40%, 1);
+}
+
+
 
 .cReview-parent :is(div, h2) {
     background-color: hsla(54, 100%, 77%, 1);
-    border: 2px solid transparent
+    border: 7px solid transparent
 }
+
+.cReview-parent.dark :is(div, h2) {
+    background-color: hsla(54, 100%, 50%, 1);
+    border: 7px solid transparent
+}
+.cReview-parent div.dgd-over {
+    background-color: hsla(54, 100%, 77%, 1);
+    border:7px solid hsla(54, 100%, 40%, 1);
+}
+
 
 
 .cDone-parent :is(div, h2) {
     background-color: hsla(93, 100%, 77%, 1);
-    border: 2px solid transparent
+    border: 7px solid transparent
 }
 
-.cToDo-parent div.dgd-over {
-    background-color: hsla(32, 100%, 77%, 1);
-    border:2px solid hsla(32, 100%, 40%, 1);
-}
-
-
-.cWIP-parent div.dgd-over {
-    background-color: hsla(159, 100%, 77%, 1);
-    border:2px solid hsla(159, 100%, 40%, 1);
-}
-
-.cReview-parent div.dgd-over {
-    background-color: hsla(54, 100%, 77%, 1);
-    border:2px solid hsla(54, 100%, 40%, 1);
+.cDone-parent.dark :is(div, h2) {
+    background-color: hsla(93, 100%, 50%, 1);
+    border: 7px solid transparent
 }
 
 .cDone-parent div.dgd-over {
     background-color: hsla(93, 100%, 77%, 1);
-    border:2px solid hsla(93, 100%, 40%, 1);
+    border:7px solid hsla(93, 100%, 40%, 1);
 }
 
 #workflow-board   {
@@ -246,6 +350,7 @@ main {
     background-color: white;
 }
 
+
 #workflow-board article div .empty-task {
     border: 2px dashed rgb(82, 82, 82);
     background-color: rgba(189, 189, 189, .7);
@@ -256,21 +361,6 @@ main {
     justify-content: center;
     bottom: 0px;
     animation: opacity-anim 1s linear;
-}
-
-#workflow-board article div .item-task.high {
-    border-color: red;
-    color: red;
-}
-
-#workflow-board article div .item-task.medium {
-    border-color: rgba(255, 122, 0, 1);
-    color: rgba(255, 122, 0, 1);
-}
-
-#workflow-board article div .item-task.low {
-    border-color: rgba(26, 132, 0, 1);
-    color: rgba(26, 132, 0, 1);
 }
 
 #workflow-board article div .item-task i {
@@ -351,4 +441,59 @@ main footer.dgd-over {
 	to {
 		opacity: 1;
 	}
+}
+
+@media (max-width:560px) {
+
+    header {
+        position: absolute;
+        height: fit-content;
+        padding-bottom: 20px;
+        width: 100%;
+        background-color: rgba(120, 120, 120, 1);
+        z-index: 2;
+    }
+
+    main {
+        padding-top: 350px;
+        padding-bottom: 100px;
+    }
+
+    header>div {
+        margin-top: 10px;
+        width:200px;
+        display: inline-block;
+    }
+
+    header .btn-container {
+       
+        transition: all .5s;
+        clip-path: none;
+        margin: 20px auto 0 auto;
+    }
+    header .btn-container:hover {
+        clip-path: none;  
+    }
+
+    header .btn-container:hover button {
+        clip-path: none;
+        animation: changeColor 2s infinite;
+    }
+
+    header .btn-container button {
+        transition: all .5s;
+        clip-path: none;
+    }
+
+    header .theme-selector {
+        width: 15%;
+        margin: 20px auto 0 auto;
+    }
+
+    main footer {
+        position: fixed;
+        left: 6%;
+        bottom: 20px;
+        width: 90%;
+    }
 }

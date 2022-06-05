@@ -20,11 +20,16 @@ let inputPriority = document.querySelector("header select");
 let btnCreateTask = document.querySelector("header button");
 btnCreateTask.addEventListener("click", createTask);
 
+let changeThemeIcon = document.querySelector("header .theme-selector i");
+changeThemeIcon.addEventListener("click", changeTheme);
+
 let isFilterByName = false;
 let isFilterByPrio = false;
 
 let draggedTask;
 let currentZone;
+
+let dark = false;
 
 const drawPriorities = (data, DOM) => {
     DOM.innerHTML = `<option value="">Choose Priority</option>`;
@@ -34,8 +39,7 @@ const drawPriorities = (data, DOM) => {
 }
 
 const drawPriority = (priority, DOM) => {
-    let option = `<option value="${priority.name}">${priority.name.charAt(0).toUpperCase() + priority.name.slice(1)
-        }</option>`
+    let option = `<option value="${priority.name}">${priority.name.charAt(0).toUpperCase() + priority.name.slice(1)}</option>`
     DOM.innerHTML += option;
 }
 
@@ -76,7 +80,7 @@ const drawAllZones = (zones) => {
 const drawTasksInZone = (array, DOM) => {
     DOM.innerHTML = "";
     if (array.length !== 0)
-        array.forEach(task => CONTROLLER.printNewTask(task._id, task.title, task.priority).drawTask(DOM, dragTask, deleteAppendAnim, onDeleteTask));
+        array.forEach(task => CONTROLLER.printNewTask(task._id, task.title, task.priority).drawTask(DOM, dragTask, deleteAppendAnim, onDeleteTask, dark));
 }
 
 function deleteAppendAnim(e) {
@@ -107,7 +111,7 @@ function createTask() {
     let emptyTask = document.querySelector("#arrToDo .empty-task")
     if (emptyTask) zoneToDo.removeChild(emptyTask)
 
-    newTask.drawTask(zoneToDo, dragTask, deleteAppendAnim, onDeleteTask, true);
+    newTask.drawTask(zoneToDo, dragTask, deleteAppendAnim, onDeleteTask, dark, true);
 
     h4ErrorCreate.style.display = "none"
     inputName.value = "";
@@ -266,6 +270,42 @@ function filterByInput(e) {
     }
 }
 
+
+function changeTheme(e) {
+    let body = document.querySelector("body")
+    console.log(articleZones);
+    if (e.target.style.left === "0%") {
+        dark = true;
+        e.target.style.left = `calc(100% - ${e.target.offsetWidth}px)`
+        e.target.classList.add("dark")
+        e.target.classList.remove("light")
+
+        articleZones.forEach(zone => zone.parentNode.classList.add("dark"));
+        drawAllZones(CONTROLLER.getLocalStorage("tasks"));
+        filterName.classList.add("dark")
+        filterPrio.classList.add("dark")
+        inputName.classList.add("dark")
+        inputPriority.classList.add("dark")
+        btnCreateTask.classList.add("dark")
+        body.classList.add("dark")
+
+    } else {
+        dark = false;
+        e.target.classList.remove("dark")
+        e.target.classList.add("light")
+        e.target.style.left = "0%"
+
+        articleZones.forEach(zone => zone.parentNode.classList.remove("dark"));
+        drawAllZones(CONTROLLER.getLocalStorage("tasks"));
+        filterName.classList.remove("dark")
+        filterPrio.classList.remove("dark")
+        inputName.classList.remove("dark")
+        inputPriority.classList.remove("dark")
+        btnCreateTask.classList.remove("dark")
+        body.classList.remove("dark")
+    }
+
+}
 
 
 drawPriorities(priorities, inputPriority);
