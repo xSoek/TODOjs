@@ -116,7 +116,7 @@ export default class Controller {
         storageData[nextArray].push(storageData[previousArray][index]);
         storageData[previousArray].splice(index, 1);
         this.saveLocalStorage("tasks", storageData);
-        console.log(storageData);
+
         return storageData;
     }
 
