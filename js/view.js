@@ -113,8 +113,18 @@ function dragTask(e) {
 
     draggedTask = e.target;
     changePointerEventStyle("none");
+    e.target.addEventListener("dragend", onDragTaskEnd);
 
 }
+
+function onDragTaskEnd(e) {
+
+    changePointerEventStyle("all");
+    e.target.addEventListener("dragend", onDragTaskEnd)
+
+}
+
+
 
 const changePointerEventStyle = (value) => {
     articleZones.forEach(zone => {
@@ -140,10 +150,11 @@ function dropTask(e) {
         }
 
     } else {
-        // deleteTask(draggedTask.dataset.task_id, draggedTask.parentNode);
+        let updatedZone = CONTROLLER.deleteTask(draggedTask.dataset.task_id, draggedTask.parentNode);
+        drawTasksInZone(updatedZone, draggedTask.parentNode)
 
     }
-    changePointerEventStyle("all")
+    //changePointerEventStyle("all")
 }
 
 function translateTask(taskId, previousArray, nextArray, previousZone, nextZone) {
