@@ -1,0 +1,498 @@
+@import url('https://fonts.googleapis.com/css2?family=Sora:wght@300;600&display=swap');
+@import url(https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css);
+
+
+* {
+    font-family: 'Sora', sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    transition: .25s;
+    display: flex;
+}
+
+body.dark {
+    background-color: rgb(44, 44, 44);
+}
+
+header {
+    position: sticky;
+    top: 0;
+
+    text-align: center;
+
+    height: 100vh;
+    width: 330px;
+    background-color: rgba(120, 120, 120, 1);
+
+}
+
+header h1 {
+    padding: .75em 0;
+}
+
+header hr {
+    border: none;
+    width: 100%;
+    background-color: white;
+    height: 1em;
+}
+
+header>div {
+    margin-top: 40px;
+}
+
+header>div h2{
+    width: 95%;
+    text-align: left;
+    margin-left: auto;
+}
+
+header .inputName input {
+    width: 80%;
+    padding: .6em;
+    border: 2px solid;
+    border-radius: 2px;
+}
+
+header .inputName input::placeholder {
+    color: black;
+}
+
+header .inputName input.dark::placeholder {
+    color: white;
+}
+
+header .inputName input.filtering.dark::placeholder {
+    color: black;
+}
+
+header .inputName input.dark {
+    border-color: black;
+    background-color: rgb(36, 36, 36);
+    color: white;
+}
+
+
+header>div i {
+    background-color: white;
+    padding: 3px;
+    border-radius: 10%;
+    border: 2px solid transparent;
+    transition: .25s;
+    cursor: pointer;
+}
+
+header>div i.fa-filter.dark {
+    background-color: rgb(36, 36, 36);
+    color: white;
+}
+
+header>div i:hover {
+    border: 2px solid black;
+}
+
+
+.filtering {
+    animation: changeColor 2s infinite;
+    color: black !important;
+}
+
+
+header>div i.filtering:hover {
+    border: 2px solid rgb(255, 145, 0);
+}
+
+
+
+header div select {
+    width: 80%;
+    padding: .6em;
+    border: 2px solid;
+    border-radius: 2px;
+}
+
+header div select.dark {
+    border-color: black;
+    background-color: rgb(36, 36, 36);
+    color: white;
+}
+
+header .btn-container {
+
+    transition: clip-path .5s;
+    clip-path: polygon(100% 0, 100% 50%, 100% 100%, 0% 100%, 0 49%, 0% 0%);
+
+    margin: 100px auto 0 auto;
+    width: 80%;
+    padding: 2px;
+    border-radius: 2px;
+    background-color: rgb(0, 0, 0);
+    
+}
+
+header .btn-container:hover {
+    
+    clip-path: polygon(88% 0, 100% 50%, 87% 100%, 0% 100%, 0 0, 0 0);
+    
+}
+
+header .btn-container:hover :is(button, button.dark) {
+    color: black;
+    clip-path: polygon(88% 0, 99% 50%, 87% 100%, 0% 100%, 0 0, 0 0);
+    background-color: rgb(255, 217, 0);
+}
+
+
+
+header .btn-container button {
+    transition: clip-path .5s;
+    clip-path: polygon(100% 0, 100% 50%, 100% 100%, 0% 100%, 0 0, 0 0);
+    font-weight: 700;
+    background-color: white;
+    color: black;
+    width: 100%;
+    padding: .6em;
+
+    user-select: none;
+
+    border: none;
+    cursor: pointer;
+}
+
+header .btn-container button.dark {
+    color: white;
+    background-color: rgb(36, 36, 36);
+    
+}
+
+header .btn-container.disabled {
+    pointer-events: none;
+}
+
+header>h4 {
+    margin-top: 5px;
+    font-size: .75em;
+    color: rgb(187, 2, 2);
+    display: none;
+}
+
+header .theme-selector {
+    position: relative;
+    border-radius: 5px;
+    width: 22%;
+    height: 25px;
+    margin: 100px auto;
+    display: flex;
+    justify-content: space-between;
+    border: 1px solid;
+    background-color: rgb(85, 85, 85);
+}
+
+header .theme-selector i{
+    transition: .25s;
+    position: absolute;
+    border: 2px solid transparent;
+    transform: scale(1.4);
+}
+
+
+header .theme-selector i.light{
+    color: black;
+    background-color: white;
+    border: 2px solid transparent;
+}
+
+
+header .theme-selector  i.dark{
+    
+    color: yellow;
+    background-color: rgb(29, 29, 29);
+    
+}
+
+header .theme-selector i.dark:hover {
+    border: 2px solid transparent;
+}
+
+main {
+    overflow: auto;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    width:100%;
+
+    padding: 0 2em;
+}
+    
+.cToDo-parent :is(div, h2) {
+    background-color: hsla(32, 100%, 77%, 1);
+    border: 7px solid transparent
+}
+
+.cToDo-parent.dark :is(div, h2) {
+    background-color: hsla(32, 100%, 60%, 1);
+    border: 7px solid transparent
+}
+.cToDo-parent div.dgd-over {
+    background-color: hsla(32, 100%, 77%, 1);
+    border:7px solid hsla(32, 100%, 40%, 1);
+}
+
+
+
+.cWIP-parent :is(div, h2) {
+    background-color: hsla(159, 100%, 77%, 1);
+    border: 7px solid transparent
+}
+
+.cWIP-parent.dark :is(div, h2) {
+    background-color: hsla(159, 100%, 50%, 1);
+    border: 7px solid transparent
+}
+.cWIP-parent div.dgd-over {
+    background-color: hsla(159, 100%, 77%, 1);
+    border:7px solid hsla(159, 100%, 40%, 1);
+}
+
+
+
+.cReview-parent :is(div, h2) {
+    background-color: hsla(54, 100%, 77%, 1);
+    border: 7px solid transparent
+}
+
+.cReview-parent.dark :is(div, h2) {
+    background-color: hsla(54, 100%, 50%, 1);
+    border: 7px solid transparent
+}
+.cReview-parent div.dgd-over {
+    background-color: hsla(54, 100%, 77%, 1);
+    border:7px solid hsla(54, 100%, 40%, 1);
+}
+
+
+
+.cDone-parent :is(div, h2) {
+    background-color: hsla(93, 100%, 77%, 1);
+    border: 7px solid transparent
+}
+
+.cDone-parent.dark :is(div, h2) {
+    background-color: hsla(93, 100%, 50%, 1);
+    border: 7px solid transparent
+}
+
+.cDone-parent div.dgd-over {
+    background-color: hsla(93, 100%, 77%, 1);
+    border:7px solid hsla(93, 100%, 40%, 1);
+}
+
+#workflow-board   {
+    display: flex;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+    margin-bottom: 100px;
+}
+
+#workflow-board article  {
+    margin: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#workflow-board article>div {
+    position: relative;
+    padding: 20px 15px 0px 15px;
+    margin-top: 10px;
+    border-radius: 5px;
+    width: 300px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: .2s;
+}
+
+
+#workflow-board article h2 {
+    width: fit-content;
+    padding: .5em 2.5em;
+    border-radius: 5px;
+}
+
+#workflow-board article div :is(.item-task, .empty-task) {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 90%;
+    border-radius: 3px;
+    padding: 10px 5px 10px 20px;
+    margin-bottom: 20px;
+    font-size: .8em;
+}
+
+
+
+.new-task {
+	transform-origin: 50% 0;
+	animation: append-animate .5s linear;
+}
+
+#workflow-board article div .item-task {
+    border: 2px solid black;
+    background-color: white;
+}
+
+
+#workflow-board article div .empty-task {
+    border: 2px dashed rgb(82, 82, 82);
+    background-color: rgba(189, 189, 189, .7);
+    pointer-events: none;
+    position: absolute;
+    text-align: center;
+    padding: 10px 0px;
+    justify-content: center;
+    bottom: 0px;
+    animation: opacity-anim 1s linear;
+}
+
+#workflow-board article div .item-task i {
+    cursor: pointer;
+    padding-right: 10px;
+    color: red;
+    transition: transform .15s;
+}
+
+#workflow-board article div .item-task i:hover {
+    transform: scale(1.2);
+}
+
+
+main footer {
+    position: sticky;
+    bottom: 20px;
+    text-align: center;
+    background-color: rgba(255, 176, 176, 1);
+    border: 2px dashed rgba(255, 0, 0, 1);
+    color: rgba(159, 0, 0, 1);
+    padding: 2em 2em;
+    transition: .5s;
+}
+
+
+
+.dgd-delete {
+    border: 2px solid rgb(255, 100, 100);
+    background-color: rgb(255, 100, 100);
+    color: black;
+    font-weight: 800;
+    bottom: 40px;
+}
+
+main footer.dgd-over {
+    transform: scale(1.01);
+    border: 2px dashed red;
+    bottom: 40px;
+    background-color: rgba(255, 176, 176, 1);
+}
+
+.dgd-zones {
+    padding-bottom: 63px !important;
+}
+
+
+
+
+
+@keyframes changeColor {
+    0%{
+        background-color: rgb(255, 241, 162);
+    }
+
+    50%{
+        background-color: rgb(255, 217, 0);
+    }
+
+    100%{
+        background-color: rgb(255, 241, 162);
+    }
+}
+
+@keyframes append-animate {
+	from {
+		height: 0px;
+	}
+	to {
+		height: 100%;
+	}
+}
+
+@keyframes opacity-anim {
+	from {
+		opacity: 0;
+	}
+	to {
+		opacity: 1;
+	}
+}
+
+@media (max-width:560px) {
+
+    header {
+        position: absolute;
+        height: fit-content;
+        padding-bottom: 20px;
+        width: 100%;
+        background-color: rgba(120, 120, 120, 1);
+        z-index: 2;
+    }
+
+    main {
+        padding-top: 350px;
+        padding-bottom: 100px;
+    }
+
+    header>div {
+        margin-top: 10px;
+        width:200px;
+        display: inline-block;
+    }
+
+    header .btn-container {
+       
+        transition: all .5s;
+        clip-path: none;
+        margin: 20px auto 0 auto;
+    }
+    header .btn-container:hover {
+        clip-path: none;  
+    }
+
+    header .btn-container:hover button {
+        clip-path: none;
+        animation: changeColor 2s infinite;
+    }
+
+    header .btn-container button {
+        transition: all .5s;
+        clip-path: none;
+    }
+
+    header .theme-selector {
+        width: 15%;
+        margin: 20px auto 0 auto;
+    }
+
+    main footer {
+        position: fixed;
+        left: 6%;
+        bottom: 20px;
+        width: 90%;
+    }
+}
