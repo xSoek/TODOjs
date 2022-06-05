@@ -136,7 +136,7 @@ header>h4 {
 }
 
 main {
-
+    overflow: auto;
     position: relative;
     display: flex;
     flex-direction: column;
@@ -148,19 +148,46 @@ main {
 }
     
 .cToDo-parent :is(div, h2) {
-    background-color: rgba(217, 217, 217, 1);
+    background-color: hsla(32, 100%, 77%, 1);
+    border: 2px solid transparent
 }
 
+
 .cWIP-parent :is(div, h2) {
-    background-color: rgba(140, 255, 214, 1)
+    background-color: hsla(159, 100%, 77%, 1);
+    border: 2px solid transparent
 }
 
 .cReview-parent :is(div, h2) {
-    background-color: rgba(255, 240, 108, 1);
+    background-color: hsla(54, 100%, 77%, 1);
+    border: 2px solid transparent
 }
 
+
 .cDone-parent :is(div, h2) {
-    background-color: rgba(191, 255, 140, 1);
+    background-color: hsla(93, 100%, 77%, 1);
+    border: 2px solid transparent
+}
+
+.cToDo-parent div.dgd-over {
+    background-color: hsla(32, 100%, 77%, 1);
+    border:2px solid hsla(32, 100%, 40%, 1);
+}
+
+
+.cWIP-parent div.dgd-over {
+    background-color: hsla(159, 100%, 77%, 1);
+    border:2px solid hsla(159, 100%, 40%, 1);
+}
+
+.cReview-parent div.dgd-over {
+    background-color: hsla(54, 100%, 77%, 1);
+    border:2px solid hsla(54, 100%, 40%, 1);
+}
+
+.cDone-parent div.dgd-over {
+    background-color: hsla(93, 100%, 77%, 1);
+    border:2px solid hsla(93, 100%, 40%, 1);
 }
 
 #workflow-board   {
@@ -178,6 +205,7 @@ main {
 }
 
 #workflow-board article>div {
+    position: relative;
     padding: 20px 15px 0px 15px;
     margin-top: 10px;
     border-radius: 5px;
@@ -185,7 +213,7 @@ main {
     display: flex;
     flex-direction: column;
     align-items: center;
-    transition: all 1s;
+    transition: .2s;
 }
 
 
@@ -201,9 +229,9 @@ main {
     justify-content: space-between;
     width: 90%;
     border-radius: 3px;
-    padding: 10px 20px;
+    padding: 10px 5px 10px 20px;
     margin-bottom: 20px;
-
+    font-size: .8em;
 }
 
 
@@ -222,6 +250,12 @@ main {
     border: 2px dashed rgb(82, 82, 82);
     background-color: rgba(189, 189, 189, .7);
     pointer-events: none;
+    position: absolute;
+    text-align: center;
+    padding: 10px 0px;
+    justify-content: center;
+    bottom: 0px;
+    animation: opacity-anim 1s linear;
 }
 
 #workflow-board article div .item-task.high {
@@ -241,7 +275,7 @@ main {
 
 #workflow-board article div .item-task i {
     cursor: pointer;
-    padding: 10px;
+    padding-right: 10px;
     color: red;
     transition: transform .15s;
 }
@@ -253,13 +287,36 @@ main {
 
 main footer {
     position: sticky;
-    bottom: 10px;
+    bottom: 20px;
     text-align: center;
     background-color: rgba(255, 176, 176, 1);
     border: 2px dashed rgba(255, 0, 0, 1);
     color: rgba(159, 0, 0, 1);
     padding: 2em 2em;
+    transition: .5s;
 }
+
+
+
+.dgd-delete {
+    border: 2px solid rgb(255, 100, 100);
+    background-color: rgb(255, 100, 100);
+    color: black;
+    font-weight: 800;
+    bottom: 40px;
+}
+
+main footer.dgd-over {
+    transform: scale(1.01);
+    border: 2px dashed red;
+    bottom: 40px;
+    background-color: rgba(255, 176, 176, 1);
+}
+
+.dgd-zones {
+    padding-bottom: 63px !important;
+}
+
 
 
 
@@ -284,5 +341,14 @@ main footer {
 	}
 	to {
 		height: 100%;
+	}
+}
+
+@keyframes opacity-anim {
+	from {
+		opacity: 0;
+	}
+	to {
+		opacity: 1;
 	}
 }

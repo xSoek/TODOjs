@@ -2,7 +2,7 @@ import Controller from "./controller.js"
 
 const CONTROLLER = new Controller();
 
-let articleZones = document.querySelectorAll("section article>div");
+let articleZones = document.querySelectorAll("#workflow-board article>div");
 let zoneToDo = document.querySelector("section .cToDo-parent>div");
 let deleteZone = document.querySelector("main footer");
 
@@ -24,21 +24,38 @@ let isFilterByName = false;
 let isFilterByPrio = false;
 
 let draggedTask;
+let currentZone;
+
+const drawPriorities = (data, DOM) => {
+    DOM.innerHTML = `<option value="">Choose Priority</option>`;
+    console.log(data);
+    data.forEach(priority => drawPriority(priority, DOM))
+
+}
+
+const drawPriority = (priority, DOM) => {
+    let option = `<option value="${priority.name}">${priority.name.charAt(0).toUpperCase() + priority.name.slice(1)
+        }</option>`
+    DOM.innerHTML += option;
+}
 
 const addOnDropEvent = () => {
+
     for (const zone of articleZones) {
+        zone.addEventListener("dragenter", toggleOnDragInZone)
+        zone.addEventListener("dragleave", toggleOnDragInZone)
         zone.addEventListener("dragover", dragOverZone, false)
         zone.addEventListener("drop", dropTask)
-
     }
 
     deleteZone.addEventListener("dragover", dragOverZone, false)
     deleteZone.addEventListener("drop", dropTask)
+    deleteZone.addEventListener("dragenter", toggleOnDragInZone)
+    deleteZone.addEventListener("dragleave", toggleOnDragInZone)
 };
 
 
 const drawAllZones = (zones) => {
-    console.log(zones);
     if (!zones) {
         zones = {
             arrToDo: [],
@@ -58,11 +75,8 @@ const drawAllZones = (zones) => {
 
 const drawTasksInZone = (array, DOM) => {
     DOM.innerHTML = "";
-    console.log(array);
     if (array.length !== 0)
         array.forEach(task => CONTROLLER.printNewTask(task._id, task.title, task.priority).drawTask(DOM, dragTask, deleteAppendAnim, onDeleteTask));
-    else
-        drawEmptyTask(DOM)
 }
 
 function deleteAppendAnim(e) {
@@ -70,13 +84,13 @@ function deleteAppendAnim(e) {
     e.target.removeEventListener("transitionend", deleteAppendAnim)
 }
 
-const drawEmptyTask = (DOM) => {
+const drawEmptyTask = (DOM, message) => {
 
     let div = document.createElement("div");
     div.classList.add("empty-task");
 
     let h3 = document.createElement("h3");
-    h3.innerText = "Drop your task here";
+    h3.innerText = message;
 
     div.append(h3);
     DOM.appendChild(div)
@@ -104,7 +118,6 @@ function createTask() {
 
 function onDeleteTask(e) {
     let updatedZone = CONTROLLER.deleteTask(e.target.parentNode.dataset.task_id)
-    console.log(updatedZone);
     drawTasksInZone(updatedZone, e.target.parentNode.parentNode);
 }
 
@@ -112,19 +125,42 @@ function onDeleteTask(e) {
 function dragTask(e) {
 
     draggedTask = e.target;
+    currentZone = e.target.parentNode;
     changePointerEventStyle("none");
     e.target.addEventListener("dragend", onDragTaskEnd);
+    toggleOnDrag(currentZone);
+    articleZones.forEach(zone => {
+        if (draggedTask.parentNode !== zone)
+            drawEmptyTask(zone, "Drop your task here")
+    })
 
 }
 
 function onDragTaskEnd(e) {
-
+    toggleOnDrag(currentZone);
     changePointerEventStyle("all");
     e.target.addEventListener("dragend", onDragTaskEnd)
 
+    articleZones.forEach(zone => {
+        let emptyTask = document.querySelector(`#${zone.id} .empty-task`)
+        if (emptyTask) {
+            zone.removeChild(emptyTask)
+        }
+    })
 }
 
+function toggleOnDrag(currentZone) {
+    articleZones.forEach(zone => {
+        if (zone !== currentZone) zone.classList.toggle("dgd-zones")
+    });
 
+    deleteZone.classList.toggle("dgd-delete")
+}
+
+function toggleOnDragInZone(e) {
+
+    e.target.classList.toggle("dgd-over")
+}
 
 const changePointerEventStyle = (value) => {
     articleZones.forEach(zone => {
@@ -137,9 +173,8 @@ const changePointerEventStyle = (value) => {
 function dropTask(e) {
 
     e.preventDefault();
-
+    toggleOnDragInZone(e);
     if (e.target.id !== "delete-board") {
-        console.log(e.target);
         if (draggedTask !== e.target.parentNode && draggedTask !== e.target) {
             translateTask(draggedTask.dataset.task_id,
                 draggedTask.parentNode.id,
@@ -169,13 +204,14 @@ function translateTask(taskId, previousArray, nextArray, previousZone, nextZone)
     let emptyTask = document.querySelector(`#${nextArray} .empty-task`)
     if (emptyTask) nextZone.removeChild(emptyTask)
 
-    nextZone.appendChild(draggedTask);
+    drawTasksInZone(updatedZones[nextArray], nextZone)
 
     draggedTask.classList.add("new-task");
     draggedTask.addEventListener("transitionend", deleteAppendAnim)
 }
 
 function dragOverZone(e) {
+
     e.preventDefault();
 }
 
@@ -232,6 +268,6 @@ function filterByInput(e) {
 
 
 
-
+drawPriorities(priorities, inputPriority);
 addOnDropEvent();
 drawAllZones(CONTROLLER.getLocalStorage("tasks"));

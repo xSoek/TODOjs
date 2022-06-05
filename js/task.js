@@ -1,3 +1,5 @@
+
+
 export default class Task {
 
     constructor(_id, title, priority) {
@@ -8,13 +10,13 @@ export default class Task {
 
     drawTask(DOM, dragTask, deleteAppendAnim, onDeleteTask, withAnimation = false) {
 
-
         let div = document.createElement("div");
         div.dataset.task_id = this._id;
+
         div.classList.add("item-task");
-        div.classList.add(this.priority);
         div.draggable = true;
         div.addEventListener("dragstart", dragTask)
+
 
         if (withAnimation) {
             div.classList.add("new-task");
@@ -23,6 +25,15 @@ export default class Task {
 
         let h3 = document.createElement("h3");
         h3.innerText = this.title;
+
+        if (DOM.id !== "arrDone") {
+            let priorityProperties = priorities.find(priority => priority.name === this.priority);
+            div.style.borderColor = priorityProperties.borderColor;
+            div.style.color = priorityProperties.fontColor;
+        } else {
+            h3.style.textDecoration = "line-through"
+        }
+
 
         let i = document.createElement("i");
         i.addEventListener("click", onDeleteTask);
