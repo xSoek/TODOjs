@@ -276,9 +276,10 @@ function changeTheme(e) {
     console.log(articleZones);
     if (e.target.style.left === "0%") {
         dark = true;
+
+        e.target.classList.add("dark", "fa-moon")
+        e.target.classList.remove("light", "fa-sun")
         e.target.style.left = `calc(100% - ${e.target.offsetWidth}px)`
-        e.target.classList.add("dark")
-        e.target.classList.remove("light")
 
         articleZones.forEach(zone => zone.parentNode.classList.add("dark"));
         drawAllZones(CONTROLLER.getLocalStorage("tasks"));
@@ -291,8 +292,8 @@ function changeTheme(e) {
 
     } else {
         dark = false;
-        e.target.classList.remove("dark")
-        e.target.classList.add("light")
+        e.target.classList.remove("dark", "fa-moon")
+        e.target.classList.add("light", "fa-sun")
         e.target.style.left = "0%"
 
         articleZones.forEach(zone => zone.parentNode.classList.remove("dark"));

@@ -188,7 +188,8 @@ header .theme-selector {
     margin: 100px auto;
     display: flex;
     justify-content: space-between;
-    background-color: black;
+    border: 1px solid;
+    background-color: rgb(85, 85, 85);
 }
 
 header .theme-selector i{
@@ -206,7 +207,7 @@ header .theme-selector i.light{
 }
 
 
-header .theme-selector :is(i.light:hover, i.dark){
+header .theme-selector  i.dark{
     
     color: yellow;
     background-color: rgb(29, 29, 29);
@@ -214,8 +215,6 @@ header .theme-selector :is(i.light:hover, i.dark){
 }
 
 header .theme-selector i.dark:hover {
-    color: black;
-    background-color: white;
     border: 2px solid transparent;
 }
 
