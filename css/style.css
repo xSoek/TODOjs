@@ -219,7 +219,6 @@ header .theme-selector i.dark:hover {
 }
 
 main {
-    overflow: auto;
     position: relative;
     display: flex;
     flex-direction: column;
@@ -232,71 +231,71 @@ main {
     
 .cToDo-parent :is(div, h2) {
     background-color: hsla(32, 100%, 77%, 1);
-    border: 2px solid transparent
+    border: 3px solid transparent
 }
 
 .cToDo-parent.dark :is(div, h2) {
     background-color: rgb(85, 85, 85);
     color: hsla(32, 100%, 60%, 1);
-    border: 2px solid hsla(32, 100%, 60%, 1)
+    border: 3px solid hsla(32, 100%, 60%, 1)
 }
 .cToDo-parent div.dgd-over {
     background-color: hsla(32, 100%, 77%, 1);
-    border:7px solid hsla(32, 100%, 40%, 1);
+    border: 3px solid hsla(32, 100%, 40%, 1);
 }
 
 
 
 .cWIP-parent :is(div, h2) {
     background-color: hsla(159, 100%, 77%, 1);
-    border: 2px solid transparent
+    border: 3px solid transparent
 }
 
 .cWIP-parent.dark :is(div, h2) {
     background-color: rgb(85, 85, 85);
     color: hsla(159, 100%, 50%, 1);
-    border: 2px solid hsla(159, 100%, 50%, 1)
+    border: 3px solid hsla(159, 100%, 50%, 1)
 }
 .cWIP-parent div.dgd-over {
     background-color: hsla(159, 100%, 77%, 1);
-    border:7px solid hsla(159, 100%, 40%, 1);
+    border: 3px solid hsla(159, 100%, 40%, 1);
 }
 
 
 
 .cReview-parent :is(div, h2) {
     background-color: hsla(54, 100%, 77%, 1);
-    border: 2px solid transparent
+    border: 3px solid transparent
 }
 
 .cReview-parent.dark :is(div, h2) {
     background-color: rgb(85, 85, 85);
     color: hsla(54, 100%, 50%, 1);
-    border: 2px solid hsla(54, 100%, 50%, 1);
+    border: 3px solid hsla(54, 100%, 50%, 1);
 }
 
 .cReview-parent div.dgd-over {
     background-color: hsla(54, 100%, 77%, 1);
-    border:7px solid hsla(54, 100%, 40%, 1);
+    border:3px solid hsla(54, 100%, 40%, 1);
 }
 
 
 
 .cDone-parent :is(div, h2) {
     background-color: hsla(93, 100%, 77%, 1);
-    border: 2px solid transparent
+    border: 3px solid transparent
 }
 
 .cDone-parent.dark :is(div, h2) {
     background-color: rgb(85, 85, 85);
     color: hsla(93, 100%, 50%, 1);
-    border: 2px solid hsla(93, 100%, 50%, 1);
+    border: 3px solid hsla(93, 100%, 50%, 1);
 
 }
 
 .cDone-parent div.dgd-over {
     background-color: hsla(93, 100%, 77%, 1);
-    border:7px solid hsla(93, 100%, 40%, 1);
+    border:3px solid hsla(93, 100%, 40%, 1);
 }
 
 #workflow-board   {
@@ -357,6 +356,7 @@ main {
 
 
 #workflow-board article div .empty-task {
+    color: rgb(41, 41, 41);
     border: 2px dashed rgb(82, 82, 82);
     background-color: rgba(189, 189, 189, .7);
     pointer-events: none;
