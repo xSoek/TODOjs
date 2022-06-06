@@ -232,12 +232,13 @@ main {
     
 .cToDo-parent :is(div, h2) {
     background-color: hsla(32, 100%, 77%, 1);
-    border: 7px solid transparent
+    border: 2px solid transparent
 }
 
 .cToDo-parent.dark :is(div, h2) {
-    background-color: hsla(32, 100%, 60%, 1);
-    border: 7px solid transparent
+    background-color: rgb(85, 85, 85);
+    color: hsla(32, 100%, 60%, 1);
+    border: 2px solid hsla(32, 100%, 60%, 1)
 }
 .cToDo-parent div.dgd-over {
     background-color: hsla(32, 100%, 77%, 1);
@@ -248,12 +249,13 @@ main {
 
 .cWIP-parent :is(div, h2) {
     background-color: hsla(159, 100%, 77%, 1);
-    border: 7px solid transparent
+    border: 2px solid transparent
 }
 
 .cWIP-parent.dark :is(div, h2) {
-    background-color: hsla(159, 100%, 50%, 1);
-    border: 7px solid transparent
+    background-color: rgb(85, 85, 85);
+    color: hsla(159, 100%, 50%, 1);
+    border: 2px solid hsla(159, 100%, 50%, 1)
 }
 .cWIP-parent div.dgd-over {
     background-color: hsla(159, 100%, 77%, 1);
@@ -264,13 +266,15 @@ main {
 
 .cReview-parent :is(div, h2) {
     background-color: hsla(54, 100%, 77%, 1);
-    border: 7px solid transparent
+    border: 2px solid transparent
 }
 
 .cReview-parent.dark :is(div, h2) {
-    background-color: hsla(54, 100%, 50%, 1);
-    border: 7px solid transparent
+    background-color: rgb(85, 85, 85);
+    color: hsla(54, 100%, 50%, 1);
+    border: 2px solid hsla(54, 100%, 50%, 1);
 }
+
 .cReview-parent div.dgd-over {
     background-color: hsla(54, 100%, 77%, 1);
     border:7px solid hsla(54, 100%, 40%, 1);
@@ -280,12 +284,14 @@ main {
 
 .cDone-parent :is(div, h2) {
     background-color: hsla(93, 100%, 77%, 1);
-    border: 7px solid transparent
+    border: 2px solid transparent
 }
 
 .cDone-parent.dark :is(div, h2) {
-    background-color: hsla(93, 100%, 50%, 1);
-    border: 7px solid transparent
+    background-color: rgb(85, 85, 85);
+    color: hsla(93, 100%, 50%, 1);
+    border: 2px solid hsla(93, 100%, 50%, 1);
+
 }
 
 .cDone-parent div.dgd-over {
